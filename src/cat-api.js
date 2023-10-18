@@ -1,4 +1,4 @@
-// cat-api.js
+
 import axios from "axios";
 
 axios.defaults.headers.common["x-api-key"] = "live_Xv6PI3iLZUZ4pw7opRL1xePIFKo7Q4OkdfELLxbOAzMn5octTXCBJombMv1JP6l7";
