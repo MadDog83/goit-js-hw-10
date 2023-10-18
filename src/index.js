@@ -1,5 +1,5 @@
 import SlimSelect from 'slim-select';
-
+import Notiflix from 'notiflix';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 
 const selectElement = document.querySelector('.breed-select');
@@ -34,7 +34,7 @@ selectElement.addEventListener('change', (event) => {
       catInfoElement.classList.remove('hidden');
     })
     .catch(() => {
-      errorElement.classList.remove('hidden');
+      Notiflix.Notify.Failure('Oops! Something went wrong! Try reloading the page!');
       loaderElement.classList.add('hidden');
     });
 });
@@ -44,14 +44,14 @@ let select = new SlimSelect({
   });
   
   fetchBreeds()
-    .then(breeds => {
-      let options = breeds.map(breed => ({text: breed.name, value: breed.id}));
-      select.setData(options);
-      loaderElement.classList.add('hidden');
-      selectElement.classList.remove('hidden');
-    })
-    .catch(() => {
-      errorElement.classList.remove('hidden');
-      loaderElement.classList.add('hidden');
-    });
+  .then(breeds => {
+    let options = breeds.map(breed => ({text: breed.name, value: breed.id}));
+    select.setData(options);
+    loaderElement.classList.add('hidden');
+    selectElement.classList.remove('hidden');
+  })
+  .catch(() => {
+    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    loaderElement.classList.add('hidden');
+  });
   
