@@ -4,15 +4,8 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 
 const selectElement = document.querySelector('.breed-select');
 const loaderElement = document.querySelector('.loader');
-const errorElement = document.querySelector('.error');
 const catInfoElement = document.querySelector('.cat-info');
 
-function createOptionElement(breed) {
-  const optionElement = document.createElement('option');
-  optionElement.value = breed.id;
-  optionElement.textContent = breed.name;
-  return optionElement;
-}
 
 function showCatInfo(cat) {
   catInfoElement.innerHTML = `
@@ -34,7 +27,7 @@ selectElement.addEventListener('change', (event) => {
       catInfoElement.classList.remove('hidden');
     })
     .catch(() => {
-      Notiflix.Notify.Failure('Oops! Something went wrong! Try reloading the page!');
+      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
       loaderElement.classList.add('hidden');
     });
 });
