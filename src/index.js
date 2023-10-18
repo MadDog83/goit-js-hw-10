@@ -1,4 +1,5 @@
-// index.js
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.min.css';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 
 const selectElement = document.querySelector('.breed-select');
@@ -38,15 +39,19 @@ selectElement.addEventListener('change', (event) => {
     });
 });
 
-fetchBreeds()
-  .then(breeds => {
-    for (const breed of breeds) {
-      selectElement.appendChild(createOptionElement(breed));
-    }
-    loaderElement.classList.add('hidden');
-    selectElement.classList.remove('hidden');
-  })
-  .catch(() => {
-    errorElement.classList.remove('hidden');
-    loaderElement.classList.add('hidden');
+let select = new SlimSelect({
+    select: '.breed-select'
   });
+  
+  fetchBreeds()
+    .then(breeds => {
+      let options = breeds.map(breed => ({text: breed.name, value: breed.id}));
+      select.setData(options);
+      loaderElement.classList.add('hidden');
+      selectElement.classList.remove('hidden');
+    })
+    .catch(() => {
+      errorElement.classList.remove('hidden');
+      loaderElement.classList.add('hidden');
+    });
+  
