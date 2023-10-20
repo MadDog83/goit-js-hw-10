@@ -1,6 +1,8 @@
 import { fetchBreeds, fetchCatByBreed } from './cats-api';
 import Notiflix from 'notiflix';
+import 'notiflix/dist/notiflix-3.2.6.min.css';
 import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 
 const breedSelector = document.querySelector('.breed-select');
 const loadingIndicator = document.querySelector('.loader');
