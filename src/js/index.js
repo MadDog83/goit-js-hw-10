@@ -7,6 +7,9 @@ import 'slim-select/dist/slimselect.css';
 const breedSelector = document.querySelector('.breed-select');
 const loadingIndicator = document.querySelector('.loader');
 const catDetails = document.querySelector('.cat-info');
+const error = document.querySelector('.error');
+
+error.classList.add('is-hidden');
 
 function updateBreedList(breeds) {
   breedSelector.innerHTML = breeds.map(breed => `<option value="${breed.id}">${breed.name}</option>`).join('\n');
@@ -15,6 +18,7 @@ function updateBreedList(breeds) {
 function handleBreedChange(evt) {
   const selectedBreedId = evt.currentTarget.value;
   catDetails.classList.add('is-hidden');
+  loadingIndicator.classList.remove('is-hidden');
 
   fetchCatByBreed(selectedBreedId)
     .then(data => {
@@ -31,15 +35,23 @@ function handleBreedChange(evt) {
       
       catDetails.classList.remove('is-hidden');
     })
-    .catch(() => Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', { timeout: 4000, userIcon: false }))
+    .catch(() => {
+      error.classList.remove('is-hidden');
+      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', { timeout: 2000, userIcon: false });
+    })
     .finally(() => loadingIndicator.classList.add('is-hidden'));
 }
 
 function initialize() {
+  loadingIndicator.classList.remove('is-hidden');
+
   fetchBreeds()
     .then(updateBreedList)
     .then(() => new SlimSelect({ select: breedSelector }))
-    .catch(() => Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', { timeout: 4000, userIcon: false }))
+    .catch(() => {
+      error.classList.remove('is-hidden');
+      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', { timeout: 4000, userIcon: false });
+    })
     .finally(() => loadingIndicator.classList.add('is-hidden'));
 
   breedSelector.addEventListener('change', handleBreedChange);
