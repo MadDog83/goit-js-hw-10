@@ -15,10 +15,6 @@ function fetchBreeds() {
       // Повертаємо масив порід з відповіді
       return response.data;
     })
-    .catch(error => {
-      // Повертаємо помилку у разі відхилення проміса
-      return error;
-    });
 }
 
 // Функція для отримання даних про кота за ідентифікатором породи
@@ -29,10 +25,6 @@ function fetchCatByBreed(breedId) {
       // Повертаємо дані про кота з відповіді
       return response.data;
     })
-    .catch(error => {
-      // Повертаємо помилку у разі відхилення проміса
-      return error;
-    });
 }
 
 // Експортуємо функції fetchBreeds і fetchCatByBreed
