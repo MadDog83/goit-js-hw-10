@@ -12,6 +12,9 @@ function fetchBreeds() {
   // Виконуємо GET-запит на ресурс /breeds
   return axios.get("/breeds")
     .then(response => {
+      if (response.status !==200) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
       // Повертаємо масив порід з відповіді
       return response.data;
     })

@@ -13,6 +13,7 @@ error.classList.add('is-hidden');
 
 function updateBreedList(breeds) {
   breedSelector.innerHTML = breeds.map(breed => `<option value="${breed.id}">${breed.name}</option>`).join('\n');
+
 }
 
 function handleBreedChange(evt) {
